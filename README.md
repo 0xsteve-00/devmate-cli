@@ -12,32 +12,80 @@
 
 ---
 
-## ✨ Features
+## 🎯 What is devmate?
 
-| Command | Description |
-|---------|-------------|
-| `devmate commit` | 📝 AI-generated commit messages from your diff |
-| `devmate shell` | ⚡ Natural language → shell commands |
-| `devmate review` | 🔍 AI code review with severity ratings |
-| `devmate explain` | 💡 Explain any code file in plain language |
-| `devmate test` | 🧪 Auto-generate pytest unit tests |
-| `devmate doc` | 📄 Auto-generate docstrings & documentation |
-| `devmate refactor` | ♻️ Get refactoring suggestions with before/after |
+**devmate** is a CLI tool that brings AI directly into your development workflow — no browser, no copy-pasting into ChatGPT, no context switching.
+
+Instead of leaving your terminal to ask AI for help, devmate gives you **8 commands** that handle the most common AI-assisted tasks right where you code:
+
+- **Tired of writing "fix stuff" commits?** → `devmate commit` analyzes your diff and generates proper conventional commit messages.
+- **Can't remember the `find` or `tar` syntax?** → `devmate shell "find large files"` gives you the exact command.
+- **Want a second pair of eyes on your code?** → `devmate review` catches bugs, security issues, and anti-patterns before you push.
+- **Onboarding onto a new codebase?** → `devmate explain src/auth.py` breaks down what the code does in plain language.
+- **Hate writing tests?** → `devmate test src/utils.py` generates ready-to-run pytest tests with edge cases covered.
+- **Undocumented code everywhere?** → `devmate doc src/app.py` adds Google-style docstrings to every function.
+- **Code smells but not sure where?** → `devmate refactor src/app.py` gives before/after suggestions with impact ratings.
+
+All of this works with **100+ AI models** (OpenAI, Anthropic, Groq, Ollama) — including free local models.
 
 ---
 
-### 📝 `devmate commit` — AI Commit Messages
+## ✨ Commands
+
+| Command | What It Does |
+|---------|-------------|
+| `devmate commit` | 📝 Reads your `git diff`, generates a meaningful commit message (conventional/simple/detailed), lets you commit, edit, or regenerate |
+| `devmate shell` | ⚡ Converts plain English (or any language) to the exact shell command you need, with optional auto-execute and safety checks |
+| `devmate review` | 🔍 Reviews your staged changes or specific files for bugs, security issues, performance problems, and best practice violations |
+| `devmate explain` | 💡 Explains a code file (or a specific function) in plain language — great for unfamiliar codebases |
+| `devmate test` | 🧪 Generates comprehensive pytest unit tests with happy paths, edge cases, error handling, and mocking |
+| `devmate doc` | 📄 Adds Google-style docstrings to all public classes and functions in a file |
+| `devmate refactor` | ♻️ Analyzes code and suggests refactoring improvements with before/after code, rated by impact |
+| `devmate init` | ⚙️ Creates a `.devmate.yaml` config file for your project or globally |
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Install
+pip install devmate-cli
+
+# Set your API key
+export OPENAI_API_KEY=sk-...
+
+# Start using
+devmate commit --all          # AI commit message
+devmate shell "list open ports"   # natural language → command
+devmate review src/app.py     # AI code review
+```
+
+---
+
+## 📖 Usage Examples
+
+### 📝 Commit — Never write "fix stuff" again
 
 ```bash
 $ devmate commit
 ╭──────── 📝 Commit Message ────────╮
 │ feat(auth): add JWT token refresh  │
 │ endpoint                           │
+│                                    │
+│ - Add /auth/refresh POST endpoint  │
+│ - Implement token rotation logic   │
+│ - Add 7-day refresh token expiry   │
 ╰────────────────────────────────────╯
 What do you want to do? [commit/edit/regenerate/cancel]:
 ```
 
-### ⚡ `devmate shell` — Natural Language → Shell
+```bash
+devmate commit                    # from staged changes
+devmate commit --all              # stage everything first
+devmate commit -s simple          # simple | conventional | detailed
+```
+
+### ⚡ Shell — Stop Googling commands
 
 ```bash
 $ devmate shell "find all Python files modified in the last 24 hours"
@@ -47,62 +95,87 @@ $ devmate shell "find all Python files modified in the last 24 hours"
 What do you want to do? [run/copy/explain/cancel]:
 ```
 
-### 🔍 `devmate review` — AI Code Review
+```bash
+devmate shell "compress all images"
+devmate shell -e "show disk usage"       # auto-execute
+devmate shell "cari file lebih dari 100mb"   # works in any language!
+```
+
+### 🔍 Review — Catch bugs before they ship
 
 ```bash
 $ devmate review                    # review staged changes
-$ devmate review src/app.py         # review specific file
+$ devmate review src/app.py         # review a specific file
+
+# Output: severity-rated feedback
+# 🔴 Critical: SQL injection in line 42
+# 🟡 Warning: Unused variable `temp` in line 15
+# 🟢 Suggestion: Consider using list comprehension
+# ✅ Good: Error handling is solid
 ```
 
-### 💡 `devmate explain` — Understand Any Code
+### 💡 Explain — Understand any codebase fast
 
 ```bash
 $ devmate explain src/auth.py
-$ devmate explain utils.py -f parse_config   # specific function
+$ devmate explain utils.py -f parse_config   # explain one function
 ```
 
-### 🧪 `devmate test` — Generate Unit Tests
+### 🧪 Test — Auto-generate pytest tests
 
 ```bash
-$ devmate test src/utils.py                   # auto-save to tests/
-$ devmate test app.py -o tests/test_app.py    # custom output
+$ devmate test src/utils.py                   # saves to tests/test_utils.py
+$ devmate test app.py -o tests/test_app.py    # custom output path
 ```
 
-### 📄 `devmate doc` — Generate Documentation
+### 📄 Doc — Add docstrings everywhere
 
 ```bash
 $ devmate doc src/utils.py                    # overwrite with docstrings
-$ devmate doc app.py -o app_documented.py     # save to new file
+$ devmate doc app.py -o app_documented.py     # save to a new file
 ```
 
-### ♻️ `devmate refactor` — Refactoring Suggestions
+### ♻️ Refactor — Improve code quality
 
 ```bash
 $ devmate refactor src/app.py
+
+# Output: rated suggestions with before/after code
+# 🔴 High Impact: Extract duplicated auth logic into decorator
+# 🟡 Medium: Replace nested ifs with early returns
+# 🟢 Low: Use f-strings instead of .format()
 ```
 
 ---
 
-## 🚀 Installation
+## ⚙️ Configuration
 
 ```bash
-pip install devmate-cli
+devmate init                      # create .devmate.yaml (local)
+devmate init --global             # create ~/.devmate.yaml (global)
 ```
 
-### Set up your API key
+### `.devmate.yaml`
 
-```bash
-# Option 1: Environment variable (recommended)
-export OPENAI_API_KEY=sk-...
+```yaml
+# API key (or use environment variables)
+api_key: sk-...
 
-# Option 2: Config file
-devmate init --global
-# Then edit ~/.devmate.yaml
+# AI model (any litellm-supported model)
+model: gpt-4o-mini
+
+# Commit settings
+commit:
+  style: conventional   # conventional | simple | detailed
+  language: en          # commit message language
+  max_length: 72        # subject line max length
+
+# Shell settings
+shell:
+  safety: true          # confirm before dangerous commands
 ```
 
-### Supported AI Providers
-
-devmate uses [litellm](https://github.com/BerriAI/litellm) under the hood, supporting 100+ models:
+### Supported Providers
 
 | Provider | Model Example | Env Variable |
 |----------|--------------|--------------|
@@ -110,67 +183,15 @@ devmate uses [litellm](https://github.com/BerriAI/litellm) under the hood, suppo
 | Anthropic | `claude-sonnet-4-20250514` | `ANTHROPIC_API_KEY` |
 | Groq | `groq/llama3-70b-8192` | `GROQ_API_KEY` |
 | Ollama (local) | `ollama/llama3` | — (free!) |
-
----
-
-## 📖 Full Usage
-
-```bash
-# Commit
-devmate commit                    # from staged changes
-devmate commit --all              # stage everything first
-devmate commit -s simple          # simple | conventional | detailed
-
-# Shell
-devmate shell "compress all images"
-devmate shell -e "show disk usage"   # auto-execute
-
-# Review
-devmate review                    # staged changes
-devmate review src/app.py         # specific files
-
-# Explain
-devmate explain src/auth.py
-devmate explain utils.py -f my_function
-
-# Test
-devmate test src/utils.py
-devmate test app.py -o tests/test_app.py
-
-# Doc
-devmate doc src/utils.py
-devmate doc app.py -o app_doc.py
-
-# Refactor
-devmate refactor src/app.py
-
-# Config
-devmate init                      # local config
-devmate init --global             # global config
-```
-
-### `.devmate.yaml`
-
-```yaml
-api_key: sk-...
-model: gpt-4o-mini
-
-commit:
-  style: conventional    # conventional | simple | detailed
-  language: en
-  max_length: 72
-
-shell:
-  safety: true           # confirm before dangerous commands
-```
+| + 100 more via [litellm](https://github.com/BerriAI/litellm) | | |
 
 ---
 
 ## 🔒 Safety
 
-- **Dangerous command detection** — `rm -rf`, `mkfs`, etc. trigger a warning
-- **No auto-execute by default** — You always review before running
-- **API key stays local** — Never stored except in your config or env
+- **Dangerous command detection** — `rm -rf`, `mkfs`, `dd`, etc. trigger a warning
+- **No auto-execute by default** — You always review commands before running
+- **API keys stay local** — Only stored in your env or config file, never sent anywhere except your chosen AI provider
 
 ---
 
@@ -178,13 +199,15 @@ shell:
 
 - [ ] `devmate chat` — Interactive AI chat in terminal
 - [ ] Shell command history & favorites
-- [ ] Plugin system
+- [ ] Plugin system for custom commands
 - [ ] Interactive TUI mode
 - [ ] VS Code extension
 
 ---
 
 ## 🤝 Contributing
+
+Contributions welcome! Open an issue or submit a PR.
 
 1. Fork the repo
 2. Create a feature branch (`git checkout -b feat/awesome`)
