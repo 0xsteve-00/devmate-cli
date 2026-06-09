@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devmate-cli"
+version = "0.1.0"
+description = "Your AI Dev Companion in the Terminal — smart commits & natural language shell commands"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Achmad Yosifa"}
+]
+keywords = ["ai", "cli", "git", "commit", "shell", "developer-tools", "automation", "openai", "anthropic", "ollama"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Version Control :: Git",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "click>=8.1.0",
+    "rich>=13.0.0",
+    "litellm>=1.40.0",
+    "pyyaml>=6.0",
+    "prompt_toolkit>=3.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/achmadyosifa/devmate-cli"
+Repository = "https://github.com/achmadyosifa/devmate-cli"
+Issues = "https://github.com/achmadyosifa/devmate-cli/issues"
+
+[project.scripts]
+devmate = "devmate.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["devmate*"]
