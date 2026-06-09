@@ -218,7 +218,23 @@ Contributions welcome! Open an issue or submit a PR.
 
 ## 📄 License
 
-MIT © [Achmad Yosifa](https://github.com/0xsteve-00)
+MIT License
+
+---
+
+## ⭐ Support
+
+If you find devmate useful, give it a star! It helps others discover the project and motivates us to keep improving.
+
+<p align="center">
+  <a href="https://github.com/0xsteve-00/devmate-cli/stargazers">
+    <img src="https://img.shields.io/github/stars/0xsteve-00/devmate-cli?style=social" alt="GitHub Stars">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/0xsteve-00/devmate-cli">⭐ Star devmate on GitHub</a>
+</p>
 
 ---
 
